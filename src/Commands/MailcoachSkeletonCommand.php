@@ -1,12 +1,12 @@
 <?php
 
-namespace VendorName\Skeleton\Commands;
+namespace Combindma\MailcoachSkeleton\Commands;
 
 use Illuminate\Console\Command;
 
-class SkeletonCommand extends Command
+class MailcoachSkeletonCommand extends Command
 {
-    public $signature = 'skeleton';
+    public $signature = 'mailcoach-skeleton';
 
     public $description = 'My command';
 
