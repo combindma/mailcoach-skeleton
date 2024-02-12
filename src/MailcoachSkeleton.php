@@ -18,8 +18,8 @@ class MailcoachSkeleton
 {
     public function routes(string $prefix = 'app'): void
     {
-        Route::group(['middleware' => ['guest']], function () {
-            Route::redirect('/', '/login');
+        Route::group(['middleware' => ['guest']], function () use ($prefix) {
+            Route::redirect('/'.$prefix, '/login');
         });
 
         Route::get('login', [LoginController::class, 'showLoginForm'])->name('login');
