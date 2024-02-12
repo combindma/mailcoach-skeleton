@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Facade;
  */
 class MailcoachSkeleton extends Facade
 {
-    protected static function getFacadeAccessor()
+    protected static function getFacadeAccessor(): string
     {
         return \Combindma\MailcoachSkeleton\MailcoachSkeleton::class;
     }

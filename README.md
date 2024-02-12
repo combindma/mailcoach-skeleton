@@ -1,9 +1,9 @@
 # A useful package to have user management in your mailcoach project
 
-[![Latest Version on Packagist](https://img.shields.io/packagist/v/combindma/mailcoach-mailcoach-skeleton.svg?style=flat-square)](https://packagist.org/packages/combindma/mailcoach-mailcoach-skeleton)
-[![GitHub Tests Action Status](https://img.shields.io/github/actions/workflow/status/combindma/mailcoach-mailcoach-skeleton/run-tests.yml?branch=main&label=tests&style=flat-square)](https://github.com/combindma/mailcoach-mailcoach-skeleton/actions?query=workflow%3Arun-tests+branch%3Amain)
-[![GitHub Code Style Action Status](https://img.shields.io/github/actions/workflow/status/combindma/mailcoach-mailcoach-skeleton/fix-php-code-style-issues.yml?branch=main&label=code%20style&style=flat-square)](https://github.com/combindma/mailcoach-mailcoach-skeleton/actions?query=workflow%3A"Fix+PHP+code+style+issues"+branch%3Amain)
-[![Total Downloads](https://img.shields.io/packagist/dt/combindma/mailcoach-mailcoach-skeleton.svg?style=flat-square)](https://packagist.org/packages/combindma/mailcoach-mailcoach-skeleton)
+[![Latest Version on Packagist](https://img.shields.io/packagist/v/combindma/mailcoach-skeleton.svg?style=flat-square)](https://packagist.org/packages/combindma/mailcoach-skeleton)
+[![GitHub Tests Action Status](https://img.shields.io/github/actions/workflow/status/combindma/mailcoach-skeleton/run-tests.yml?branch=main&label=tests&style=flat-square)](https://github.com/combindma/mailcoach-skeleton/actions?query=workflow%3Arun-tests+branch%3Amain)
+[![GitHub Code Style Action Status](https://img.shields.io/github/actions/workflow/status/combindma/mailcoach-skeleton/fix-php-code-style-issues.yml?branch=main&label=code%20style&style=flat-square)](https://github.com/combindma/mailcoach-skeleton/actions?query=workflow%3A"Fix+PHP+code+style+issues"+branch%3Amain)
+[![Total Downloads](https://img.shields.io/packagist/dt/combindma/mailcoach-skeleton.svg?style=flat-square)](https://packagist.org/packages/combindma/mailcoach-skeleton)
 
 
 ## About Combind Agency
@@ -21,24 +21,76 @@ You can install the package via composer:
 composer require combindma/mailcoach-skeleton
 ```
 
-You can publish and run the migrations with:
+Update the User model to this:
+```php
+class User extends Authenticatable implements MailcoachUser
+{
+use Notifiable;
+use ReceivesWelcomeNotification;
+use UsesMailcoachModels;
+
+    protected $fillable = [
+        'name',
+        'email',
+        'password',
+    ];
+
+    protected $hidden = [
+        'password',
+        'remember_token',
+    ];
+
+    protected $casts = [
+        'email_verified_at' => 'datetime',
+    ];
+
+    public function canViewMailcoach(): bool
+    {
+        return true;
+    }
+}
+```
+
+Add this to your file app/exceptions/handler.php:
+```php
+use Illuminate\Auth\AuthenticationException;
+
+protected function unauthenticated($request, AuthenticationException $exception)
+    {
+        return $this->shouldReturnJson($request, $exception)
+            ? response()->json(['message' => $exception->getMessage()], 401)
+            : redirect()->guest($exception->redirectTo() ?? route('mailcoach.login'));
+    }
+```
+
+Add this to your file app/providers/EventServiceProvider.php:
+```php
+use Illuminate\Auth\Events\Registered;
+use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
+use Combindma\MailcoachSkeleton\Listeners\SetupMailcoach;
+use Spatie\Mailcoach\Domain\Shared\Events\ServingMailcoach;
+
+protected $listen = [
+        //...
+        Registered::class => [
+            SendEmailVerificationNotification::class,
+        ],
+        ServingMailcoach::class => [
+            SetupMailcoach::class,
+        ],
+    ];
+```
+
+You must register the routes needed. Add this in your web file:
+```php
+MailcoachSkeleton::routes('app');
+```
+
+You can publish and run Laravel default migrations ('create_users_table', 'create_sessions_table', 'create_password_resets_table', 'create_jobs_table', 'create_failed_jobs_table') with:
 
 ```bash
 php artisan vendor:publish --tag="mailcoach-skeleton-migrations"
 php artisan migrate
-```
-
-You can publish the config file with:
-
-```bash
-php artisan vendor:publish --tag="mailcoach-skeleton-config"
-```
-
-This is the contents of the published config file:
-
-```php
-return [
-];
 ```
 
 Optionally, you can publish the views using
@@ -47,12 +99,9 @@ Optionally, you can publish the views using
 php artisan vendor:publish --tag="mailcoach-skeleton-views"
 ```
 
-## Usage
+## Creating the first user
 
-```php
-$mailcoachSkeleton = new Combindma\MailcoachSkeleton();
-echo $mailcoachSkeleton->echoPhrase('Hello, Combindma!');
-```
+After that you can create an initial user by executing ```php artisan mailcoach:make-user```. You can use the created user to login at Mailcoach. New user can be made on the users screen in mailcoach.
 
 ## Credits
 

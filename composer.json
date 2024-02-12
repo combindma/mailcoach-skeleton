@@ -1,12 +1,12 @@
 {
-    "name": "combindma/mailcoach-mailcoach-skeleton",
+    "name": "combindma/mailcoach-skeleton",
     "description": "A useful package to have user management in your mailcoach project",
     "keywords": [
         "Combind",
         "laravel",
-        "mailcoach-mailcoach-skeleton"
+        "mailcoach-skeleton"
     ],
-    "homepage": "https://github.com/combindma/mailcoach-mailcoach-skeleton",
+    "homepage": "https://github.com/combindma/mailcoach-skeleton",
     "license": "MIT",
     "authors": [
         {
@@ -17,8 +17,12 @@
     ],
     "require": {
         "php": "^8.3",
+        "illuminate/contracts": "^10.0",
+        "laravel/sanctum": "^3.3",
+        "laravel/ui": "^4.4",
+        "livewire/livewire": "^3.4",
         "spatie/laravel-package-tools": "^1.14.0",
-        "illuminate/contracts": "^10.0"
+        "spatie/laravel-welcome-notification": "^2.3"
     },
     "require-dev": {
         "laravel/pint": "^1.0",
