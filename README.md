@@ -103,6 +103,16 @@ php artisan vendor:publish --tag="mailcoach-skeleton-views"
 
 After that you can create an initial user by executing ```php artisan mailcoach:make-user```. You can use the created user to login at Mailcoach. New user can be made on the users screen in mailcoach.
 
+## Registering custom action: wait for a date
+You can register your custom action by adding the classname to the mailcoach.automation.flows.actions config key.
+```php
+[
+    'actions' => AutomationAction::defaultActions()->merge([
+               \Combindma\MailcoachSkeleton\Actions\WaitForDateAction::class
+    ])->toArray(),
+]
+```
+
 ## Credits
 
 - [Combind](https://github.com/combindma)

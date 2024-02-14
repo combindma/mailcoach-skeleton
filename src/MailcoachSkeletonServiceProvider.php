@@ -4,6 +4,7 @@ namespace Combindma\MailcoachSkeleton;
 
 use Combindma\MailcoachSkeleton\Commands\MakeUserCommand;
 use Combindma\MailcoachSkeleton\Livewire\AccountComponent;
+use Combindma\MailcoachSkeleton\Livewire\Actions\WaitForDateActionComponent;
 use Combindma\MailcoachSkeleton\Livewire\CreateUserComponent;
 use Combindma\MailcoachSkeleton\Livewire\EditUserComponent;
 use Combindma\MailcoachSkeleton\Livewire\UsersComponent;
@@ -34,6 +35,7 @@ class MailcoachSkeletonServiceProvider extends PackageServiceProvider
         Livewire::component('mailcoach-skeleton::create-user', CreateUserComponent::class);
         Livewire::component('mailcoach-skeleton::edit-user', EditUserComponent::class);
         Livewire::component('mailcoach-skeleton::users', UsersComponent::class);
+        Livewire::component('mailcoach-skeleton::waitForDate', WaitForDateActionComponent::class);
     }
 
     public function registeringPackage(): void
