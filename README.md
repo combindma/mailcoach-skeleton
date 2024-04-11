@@ -23,11 +23,24 @@ composer require combindma/mailcoach-skeleton
 
 Update the User model to this:
 ```php
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Relations\MorphMany;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
+use Laravel\Sanctum\HasApiTokens;
+use Laravel\Sanctum\PersonalAccessToken;
+use Spatie\Mailcoach\Domain\Settings\Models\MailcoachUser;
+use Spatie\Mailcoach\Domain\Shared\Traits\UsesMailcoachModels;
+use Spatie\WelcomeNotification\ReceivesWelcomeNotification;
+
+
 class User extends Authenticatable implements MailcoachUser
 {
-use Notifiable;
-use ReceivesWelcomeNotification;
-use UsesMailcoachModels;
+    use HasApiTokens;
+    use Notifiable;
+    use ReceivesWelcomeNotification;
+    use UsesMailcoachModels;
 
     protected $fillable = [
         'name',
@@ -40,9 +53,18 @@ use UsesMailcoachModels;
         'remember_token',
     ];
 
-    protected $casts = [
-        'email_verified_at' => 'datetime',
-    ];
+    protected function casts(): array
+    {
+        return [
+            'email_verified_at' => 'datetime',
+            'password' => 'hashed',
+        ];
+    }
+
+    public function personalAccessTokens(): MorphMany
+    {
+        return $this->morphMany(PersonalAccessToken::class, 'tokenable');
+    }
 
     public function canViewMailcoach(): bool
     {
@@ -51,34 +73,24 @@ use UsesMailcoachModels;
 }
 ```
 
-Add this to your file app/exceptions/handler.php:
-```php
-use Illuminate\Auth\AuthenticationException;
-
-protected function unauthenticated($request, AuthenticationException $exception)
-    {
-        return $this->shouldReturnJson($request, $exception)
-            ? response()->json(['message' => $exception->getMessage()], 401)
-            : redirect()->guest($exception->redirectTo() ?? route('mailcoach.login'));
-    }
-```
-
-Add this to your file app/providers/EventServiceProvider.php:
+Add this to your file app/providers/AppServiceProvider.php:
 ```php
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Combindma\MailcoachSkeleton\Listeners\SetupMailcoach;
 use Spatie\Mailcoach\Domain\Shared\Events\ServingMailcoach;
 
-protected $listen = [
-        //...
-        Registered::class => [
+public function boot(): void
+{
+        Event::listen(
+            Registered::class,
             SendEmailVerificationNotification::class,
-        ],
-        ServingMailcoach::class => [
+        );
+        Event::listen(
+            ServingMailcoach::class,
             SetupMailcoach::class,
-        ],
-    ];
+        );
+}
 ```
 
 You must register the routes needed. Add this in your web file:
