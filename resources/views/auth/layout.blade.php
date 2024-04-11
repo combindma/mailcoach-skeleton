@@ -23,7 +23,7 @@
                             <span class="flex w-10 h-6 text-white transform group-hover:scale-90 transition-transform duration-150">
                                 @include('mailcoach::app.layouts.partials.logoSvg')
                             </span>
-                    <span class="text-white uppercase text-xs font-bold tracking-wider">Mailcoach</span>
+                    <span class="text-white uppercase text-xs font-bold tracking-wider">{{ config('app.name') }}</span>
                 </a>
             </header>
             <main class="p-6 md:p-10">
