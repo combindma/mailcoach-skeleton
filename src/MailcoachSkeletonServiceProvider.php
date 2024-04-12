@@ -25,6 +25,7 @@ class MailcoachSkeletonServiceProvider extends PackageServiceProvider
                 'create_password_resets_table',
                 'create_jobs_table',
                 'create_failed_jobs_table',
+                'create_personal_access_tokens_table',
             )
             ->hasCommand(MakeUserCommand::class);
     }
