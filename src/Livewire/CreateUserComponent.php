@@ -17,6 +17,10 @@ class CreateUserComponent extends Component implements HasActions, HasForms
     use InteractsWithActions;
     use InteractsWithForms;
 
+    public string $email = '';
+
+    public string $name = '';
+
     public function saveUser()
     {
         $validated = $this->validate([
