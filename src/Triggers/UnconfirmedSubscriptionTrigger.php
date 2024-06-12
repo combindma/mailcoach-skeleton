@@ -10,7 +10,7 @@ class UnconfirmedSubscriptionTrigger extends AutomationTrigger implements Trigge
 {
     public static function getName(): string
     {
-        return (string) __mc('When a unconfirmed subscriber gets added');
+        return (string) __mc('When an unconfirmed subscriber gets added');
     }
 
     public function subscribe($events): void

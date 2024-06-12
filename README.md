@@ -131,7 +131,7 @@ You can register our custom trigger by adding the classname to the mailcoach.aut
 ```php
 [
     'triggers' => AutomationTrigger::defaultTriggers()->merge([
-                \Combindma\MailcoachSkeleton\Triggers\UnconfirmedSubscriptionTrigger::class;
+                \Combindma\MailcoachSkeleton\Triggers\UnconfirmedSubscriptionTrigger::class,
     ])->toArray(),
 ]
 ```

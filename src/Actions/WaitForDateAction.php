@@ -38,6 +38,11 @@ class WaitForDateAction extends AutomationAction
         return WaitForDateActionComponent::class;
     }
 
+    public static function getIcon(): string
+    {
+        return 'heroicon-s-clock';
+    }
+
     public function toArray(): array
     {
         return [
