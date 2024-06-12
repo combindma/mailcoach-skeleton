@@ -116,11 +116,22 @@ php artisan vendor:publish --tag="mailcoach-skeleton-views"
 After that you can create an initial user by executing ```php artisan mailcoach:make-user```. You can use the created user to login at Mailcoach. New user can be made on the users screen in mailcoach.
 
 ## Registering custom action: wait for a date
-You can register your custom action by adding the classname to the mailcoach.automation.flows.actions config key.
+You can register our custom action by adding the classname to the mailcoach.automation.flows.actions config key.
 ```php
 [
     'actions' => AutomationAction::defaultActions()->merge([
-               \Combindma\MailcoachSkeleton\Actions\WaitForDateAction::class
+               \Combindma\MailcoachSkeleton\Actions\WaitForDateAction::class,
+    ])->toArray(),
+]
+```
+
+
+## Registering custom trigger: UnconfirmedSubscriptionTrigger - When a unconfirmed subscriber gets added
+You can register our custom trigger by adding the classname to the mailcoach.automation.flows.triggers config key.
+```php
+[
+    'triggers' => AutomationTrigger::defaultTriggers()->merge([
+                \Combindma\MailcoachSkeleton\Triggers\UnconfirmedSubscriptionTrigger::class;
     ])->toArray(),
 ]
 ```
