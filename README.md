@@ -125,17 +125,6 @@ You can register our custom action by adding the classname to the mailcoach.auto
 ]
 ```
 
-
-## Registering custom trigger: UnconfirmedSubscriptionTrigger - When a unconfirmed subscriber gets added
-You can register our custom trigger by adding the classname to the mailcoach.automation.flows.triggers config key.
-```php
-[
-    'triggers' => AutomationTrigger::defaultTriggers()->merge([
-                \Combindma\MailcoachSkeleton\Triggers\UnconfirmedSubscriptionTrigger::class,
-    ])->toArray(),
-]
-```
-
 ## Credits
 
 - [Combind](https://github.com/combindma)
