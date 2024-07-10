@@ -41,7 +41,7 @@ class MailcoachSkeletonServiceProvider extends PackageServiceProvider
 
     public function registeringPackage(): void
     {
-        $this->app->singleton(MailcoachSkeleton::class, function () {
+        $this->app->bind(MailcoachSkeleton::class, function () {
             return new MailcoachSkeleton();
         });
     }
