@@ -38,7 +38,7 @@
     <x-mailcoach::fieldset card :legend="__mc('API Tokens')">
         <x-mailcoach::alert type="help">
             {!! __mc('You can use tokens to authenticate with the Mailcoach API. You\'ll find more info in <a href=":docsUrl" target="_blank">our docs</a>.', [
-                'docsUrl' => 'https://mailcoach.app/docs'
+                'docsUrl' => 'https://www.mailcoach.app/api-documentation/introduction/about-api'
             ]) !!}
         </x-mailcoach::alert>
 
