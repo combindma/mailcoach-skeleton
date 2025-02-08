@@ -22,12 +22,12 @@ class MakeUserCommand extends Command
         return self::SUCCESS;
     }
 
-    /** @return array{'username': string, 'email': string, 'password': string} */
+    /** @return array{'name': string, 'email': string, 'password': string} */
     protected function requestData(): array
     {
         return [
             'name' => $this->option('username') ?? text(
-                label: 'Username',
+                label: 'Name',
                 required: true,
             ),
 
