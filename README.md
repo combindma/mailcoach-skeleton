@@ -93,12 +93,27 @@ public function boot(): void
             ServingMailcoach::class,
             SetupMailcoach::class,
         );
+        
+        RateLimiter::for('api', function (Request $request) {
+            return Limit::perMinute(60)->by($request->user()?->id ?: $request->ip());
+        });
+
+        Route::mailcoach('/app');
 }
 ```
 
 You must register the routes needed. Add this in your web file:
 ```php
 MailcoachSkeleton::routes('app');
+```
+
+Add these middlewares to boostrap/app:
+```php
+->withMiddleware(function (Middleware $middleware) {
+        $middleware->redirectGuestsTo(fn () => route('login'));
+        $middleware->redirectUsersTo('/dashboard');
+        $middleware->throttleApi();
+    })
 ```
 
 You can publish and run Laravel default migrations ('create_users_table', 'create_sessions_table', 'create_password_resets_table', 'create_jobs_table', 'create_failed_jobs_table') with:
