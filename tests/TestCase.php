@@ -3,28 +3,18 @@
 namespace Combindma\MailcoachSkeleton\Tests;
 
 use Combindma\MailcoachSkeleton\MailcoachSkeletonServiceProvider;
-use Illuminate\Database\Eloquent\Factories\Factory;
 use Orchestra\Testbench\TestCase as Orchestra;
 
 class TestCase extends Orchestra
 {
-    protected function setUp(): void
-    {
-        parent::setUp();
-
-        /*Factory::guessFactoryNamesUsing(
-            fn (string $modelName) => 'Combindma\\MailcoachSkeleton\\Database\\Factories\\'.class_basename($modelName).'Factory'
-        );*/
-    }
-
-    protected function getPackageProviders($app)
+    protected function getPackageProviders($app): array
     {
         return [
             MailcoachSkeletonServiceProvider::class,
         ];
     }
 
-    public function getEnvironmentSetUp($app)
+    public function getEnvironmentSetUp($app): void
     {
         config()->set('database.default', 'testing');
         config()->set('database.connections.testing', [
@@ -33,9 +23,5 @@ class TestCase extends Orchestra
             'prefix' => '',
         ]);
         config()->set('app.locale', 'fr');
-        /*
-        $migration = include __DIR__.'/../database/migrations/create_mailcoach-skeleton_table.php.stub';
-        $migration->up();
-        */
     }
 }

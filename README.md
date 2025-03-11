@@ -12,6 +12,9 @@
 
 If you need assistance with your next project or would like to discuss a custom solution, please feel free to [contact us](mailto:hello@combind.ma) or visit our [website](https://combind.ma?utm_source=github&utm_medium=banner&utm_campaign=package_name) for more information about our services. Let's build something amazing together!
 
+## Getting Started
+
+Before you begin, make sure you have the Mailcoach package installed and configured in your new Laravel project. You can find the installation instructions [here](https://www.mailcoach.app/self-hosted/documentation/v8/getting-started/installation/in-an-existing-laravel-app).
 
 ## Installation
 
