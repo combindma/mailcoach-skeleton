@@ -4,7 +4,7 @@ namespace Combindma\MailcoachSkeleton\Livewire;
 
 use App\Models\User;
 use Closure;
-use Filament\Tables\Actions\Action;
+use Filament\Actions\Action;
 use Filament\Tables\Columns\TextColumn;
 use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Auth;

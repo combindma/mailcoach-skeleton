@@ -10,6 +10,7 @@ use Filament\Forms\Contracts\HasForms;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rule;
+use Laravel\Sanctum\NewAccessToken;
 use Livewire\Component;
 
 class AccountComponent extends Component implements HasActions, HasForms
@@ -74,7 +75,7 @@ class AccountComponent extends Component implements HasActions, HasForms
     {
         $this->validate(['tokenName' => ['required']]);
 
-        /** @var \Laravel\Sanctum\NewAccessToken $token */
+        /** @var NewAccessToken $token */
         $token = Auth::user()?->createToken($this->tokenName);
 
         $this->newToken = $token->plainTextToken;

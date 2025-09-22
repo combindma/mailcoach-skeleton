@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 use Livewire\Component;
+use Throwable;
 
 class CreateUserComponent extends Component implements HasActions, HasForms
 {
@@ -40,7 +41,7 @@ class CreateUserComponent extends Component implements HasActions, HasForms
 
             notify(__mc('The user has been created. A mail with login instructions has been sent to :email', ['email' => $user->email]));
 
-        } catch (\Throwable $e) {
+        } catch (Throwable $e) {
             report($e);
             notifyError(__mc('The user has been created. A mail with setup instructions could not be sent: '.$e->getMessage()));
         }
