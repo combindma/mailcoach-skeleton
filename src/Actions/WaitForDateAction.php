@@ -30,7 +30,7 @@ class WaitForDateAction extends AutomationAction
 
     public static function getName(): string
     {
-        return (string) __mc('Wait for a date');
+        return __mc('Wait for a datetime');
     }
 
     public static function getComponent(): ?string
@@ -46,7 +46,7 @@ class WaitForDateAction extends AutomationAction
     public function toArray(): array
     {
         return [
-            'date' => $this->date->format('Y-m-d'),
+            'date' => $this->date->format('Y-m-d H:i'),
         ];
     }
 

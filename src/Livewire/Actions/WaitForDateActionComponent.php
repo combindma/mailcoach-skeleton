@@ -11,9 +11,8 @@ class WaitForDateActionComponent extends AutomationActionComponent
 
     public function mount(): void
     {
-        $default = now()->setTimezone(config('mailcoach.timezone')
-            ?? config('app.timezone'))->addHour()->startOfHour();
-        $this->date = $this->date ?? $default->format('Y-m-d');
+        $default = now()->setTimezone(config('mailcoach.timezone') ?? config('app.timezone'))->addHour()->startOfHour();
+        $this->date = $this->date ?? $default->format('Y-m-d H:i');
     }
 
     public function getDescriptionProperty(): string
