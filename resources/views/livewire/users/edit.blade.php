@@ -1,8 +1,8 @@
 <form
     class="card-grid"
     wire:submit="save"
-    @keydown.prevent.window.cmd.s="$wire.call('save')"
-    @keydown.prevent.window.ctrl.s="$wire.call('save')"
+    @keydown.prevent.window.cmd.s="$wire.save()"
+    @keydown.prevent.window.ctrl.s="$wire.save()"
     method="POST"
 >
     @csrf
@@ -15,6 +15,11 @@
 
         <x-mailcoach::form-buttons>
             <x-mailcoach::button :label="__mc('Save user')" />
+            @if($user->welcome_valid_until)
+                <button type="button" wire:click="resendInvitation" class="button-secondary">
+                    {{ __mc('Resend invitation mail') }}
+                </button>
+            @endif
         </x-mailcoach::form-buttons>
     </x-mailcoach::card>
 </form>
