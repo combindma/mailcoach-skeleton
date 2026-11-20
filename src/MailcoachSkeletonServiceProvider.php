@@ -8,9 +8,9 @@ use Combindma\MailcoachSkeleton\Livewire\Actions\WaitForDateActionComponent;
 use Combindma\MailcoachSkeleton\Livewire\CreateUserComponent;
 use Combindma\MailcoachSkeleton\Livewire\EditUserComponent;
 use Combindma\MailcoachSkeleton\Livewire\UsersComponent;
-use Livewire\Livewire;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
+use Spatie\Mailcoach\MailcoachServiceProvider;
 
 class MailcoachSkeletonServiceProvider extends PackageServiceProvider
 {
@@ -32,11 +32,11 @@ class MailcoachSkeletonServiceProvider extends PackageServiceProvider
 
     public function packageBooted(): void
     {
-        Livewire::component('mailcoach-skeleton::account', AccountComponent::class);
-        Livewire::component('mailcoach-skeleton::create-user', CreateUserComponent::class);
-        Livewire::component('mailcoach-skeleton::edit-user', EditUserComponent::class);
-        Livewire::component('mailcoach-skeleton::users', UsersComponent::class);
-        Livewire::component('mailcoach-skeleton::waitForDate', WaitForDateActionComponent::class);
+        MailcoachServiceProvider::registerLivewireComponent('mailcoach-skeleton::account', AccountComponent::class);
+        MailcoachServiceProvider::registerLivewireComponent('mailcoach-skeleton::create-user', CreateUserComponent::class);
+        MailcoachServiceProvider::registerLivewireComponent('mailcoach-skeleton::edit-user', EditUserComponent::class);
+        MailcoachServiceProvider::registerLivewireComponent('mailcoach-skeleton::users', UsersComponent::class);
+        MailcoachServiceProvider::registerLivewireComponent('mailcoach-skeleton::waitForDate', WaitForDateActionComponent::class);
     }
 
     public function registeringPackage(): void
